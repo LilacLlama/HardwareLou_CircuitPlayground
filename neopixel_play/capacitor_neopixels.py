@@ -3,48 +3,51 @@
 
 import time
 
-from adafruit_circuitplayground import cpb
+from adafruit_circuitplayground import cp
 
-red = 100
-green = 50
-blue = 25
-pixels = 9
+red = 0
+green = 0
+blue = 0
+pixels = 10
 
-THRESHOLD = 100
+COLOR_MAX = 255
 
 print("Circuit Playground Test!")
 
-cp.adjust_touch_threshold(THRESHOLD)
-
 # Super loop
 while True:
-    if cpb.switch:
-        if cpb.touch_A0 > THRESHOLD:
+    if cp.switch:
+        if cp.touch_A1:
             pixels += 1
-        elif cpb.touch_A1 > THRESHOLD:
-            pixels -= 1
-        if cpb.touch_A2 > THRESHOLD:
+        if cp.touch_A2:
             red += 25
-        if cpb.touch_A3 > THRESHOLD:
+        if cp.touch_A3:
             red -= 25
-        if cpb.touch_A4 > THRESHOLD:
+        if cp.touch_A4:
             blue += 25
-        if cpb.touch_A5 > THRESHOLD:
+        if cp.touch_A5:
             blue -= 25
-        if cpb.touch_A6 > THRESHOLD:
+        if cp.touch_A6:
             green += 25
-        if cpb.touch_A7 > THRESHOLD:
+        if cp.touch_A7:
             green -= 25
 
         # Clear all pixels before fill
-        cpb.pixels[:] = (0, 0, 0)
+        cp.pixels.fill((0, 0, 0))
 
-        # No more than 10 NeoPixel indices (0 indexed)
-        pixels = 9 if pixels > 9 else pixels
+        # No more than 10 NeoPixel indices (0 indexed) prevent overflow
+        pixels = 1 if pixels > 10 else pixels
+
+        # Reset color if overflow
+        red = 0 if red > COLOR_MAX else red
+        blue = 0 if blue > COLOR_MAX else blue
+        green = 0 if green > COLOR_MAX else green
+
+        print(pixels, red, green, blue)
 
         for i in range(pixels):
-            cpb.pixels[i] = (RED, GREEN, BLUE)
+            cp.pixels[i] = (red, green, blue)
     else:
         # Slide is off clear all pixels
-        cpb.pixels[:] = (0, 0, 0)
-    time.sleep(2.5)
+        cp.pixels.fill((0, 0, 0))
+    time.sleep(1)
