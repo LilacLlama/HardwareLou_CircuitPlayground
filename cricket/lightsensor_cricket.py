@@ -1,6 +1,6 @@
 import time
 
-from adafruit_circuitplayground import cpb
+from adafruit_circuitplayground import cp
 
 """
 Musical Notes via https://www.arduino.cc/en/Tutorial/ToneMelody
@@ -95,30 +95,36 @@ NOTE_D8  = 4699
 NOTE_DS8 = 4978
 
 
-LOW_NOISE = 70
+# Dark seems to be 200+
+LOW_NOISE = 90
 MEDIUM_NOISE = 40
 HIGH_NOISE = 20
 SCARED_NOISE = 5
 
 # Super loop
 while True:
-    if cpb.switch:
-        if cpb.light < SCARED_NOISE:
-            cpb.pixels[:] = (0, 255, 0)
-            cpb.play_tone(NOTE_C8, 1)
-            cpb.play_tone(NOTE_B7, 1)
-        elif cpb.light < HIGH_NOISE:
-            cpb.pixels[:] = (0, 255, 0)
-            cpb.play_tone(NOTE_C6, 1)
-            cpb.play_tone(NOTE_B5, 1)
-        elif cpb.light < MEDIUM_NOISE:
-            cpb.pixels[:] = (0, 255, 0)
-            cpb.play_tone(NOTE_C4, 1)
-            cpb.play_tone(NOTE_B3, 1)
-        elif cpb.light < LOW_NOISE:
-            cpb.pixels[:] = (0, 255, 0)
-            cpb.play_tone(NOTE_C2, 1)
-            cpb.play_tone(NOTE_B0, 1)
+    if cp.switch:
+        print(cp.light)
+        if cp.light < SCARED_NOISE:
+            print("Scared")
+            cp.pixels.fill((0, 255, 0))
+            cp.play_tone(NOTE_C8, 1)
+            cp.play_tone(NOTE_B7, 1)
+        elif cp.light < HIGH_NOISE:
+            print("High")
+            cp.pixels.fill((0, 255, 0))
+            cp.play_tone(NOTE_C6, 1)
+            cp.play_tone(NOTE_B5, 1)
+        elif cp.light < MEDIUM_NOISE:
+            print("Medium")
+            cp.pixels.fill((0, 255, 0))
+            cp.play_tone(NOTE_C4, 1)
+            cp.play_tone(NOTE_B3, 1)
+        elif cp.light < LOW_NOISE:
+            print("Low")
+            cp.pixels.fill((0, 255, 0))
+            cp.play_tone(NOTE_C2, 1)
+            cp.play_tone(NOTE_B0, 1)
     else:
-        cpb.pixels[:] = (0, 0, 0)
-    time.sleep(5)
+        cp.pixels.fill((0, 255, 0))
+    time.sleep(1)
