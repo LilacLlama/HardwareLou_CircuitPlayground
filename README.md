@@ -1,6 +1,7 @@
 # HardwareLou_CircuitPlayground
 
 Circuit Playground Demos &amp; Tutorials for Louisville Hardware Meetup
+[Read the Slides Here!](http://bit.ly/2u6q3hY)
 
 ## Getting Started
 
